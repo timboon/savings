@@ -1,0 +1,61 @@
+<%= csrf_meta_tags %>
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      
+      <h4 class="text-center">Enter the savings for the week</h4>
+      
+      <% flash.each do |type, msg| %>
+        <%= content_tag :div, msg, class:"alert alert-#{type}" %>
+      <% end %>
+      
+      <div class="well">
+        <%= form_for @pages, url: claires_path do |f| %>
+          <div class="form-group">
+            <%= f.label 'Entry Date' %>
+            <%= f.date_field :week,:value => Time.now.strftime("%Y-%m-%d"), class: 'form-control' %>
+          </div>
+          <div class="form-group">
+            <%= f.label 'Amount Saved' %>
+            <%= f.text_field :claireamount, class: 'form-control' %>
+          </div>
+
+          <%= f.submit 'Submit', class: 'btn btn-default' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% # cumulative sum ruby code %>
+
+<% saved = []%>
+<% weeks =[]%>
+<% @progress.inject(0) { |sum, page| (saved << [page.week, sum + page.claireamount]).last.last} %>
+
+<% #Not used ruby code @progress.inject(0) { |sum, page| (weeks << page.week).last} %> 
+
+
+<div class="container">
+  <div class="row">
+    <div class = "col-lg-6 col-lg-offset-3">
+     <% saved = [] %>
+<% cum_sum = 0 %>
+
+<% @progress.map do |page| %>
+<%   cum_sum += page.claireamount %>
+<%   saved << [page.week, cum_sum] %>
+<% end %>
+<%= line_chart [
+      {name: "Amount Saved", data: saved},
+      {name: "Goal Savings", data: @goal.group(:week).sum(:claireamount) }]
+%>
+    </div>
+  </div>
+</div>
+
+
+

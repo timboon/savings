@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Railsapp</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+
+  
+    <nav class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class='container'>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+            <%= link_to root_path, class: "navbar-brand" do %>
+            <i class="fa fa-dollar"></i>
+            Savings Tracker
+          <% end %>
+          
+        </div>
+        <div class="collapse navbar-collapse" id="main-nav-collapse">
+
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Claire's Savings", claires_path, class: "btn btn-default" %></li>
+            <li><%= link_to "Oliver's Savings", root_path, class: "btn btn-default" %></li>
+          </ul>
+
+
+
+          
+        </div><!-- /.navbar-collapse -->
+      </div>
+    </nav>
+    
+    
+    
+    
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>

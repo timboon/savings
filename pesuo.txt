@@ -1,0 +1,4 @@
+When an input is submitted compare the week value to the  db
+find the week value -1
+add the amount value from the week value -1 to the input amount value
+save to db
